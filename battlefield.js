@@ -141,9 +141,14 @@ class Battlefield{
 
    //Validates AI Input:
    isAiValid(player, fighter){
+        if(fighter >= 0 && fighter < player.length){
+            return fighter;
+        }else{
+            fighter = Math.floor(Math.random() * (2 - 0) + 0);
+            this.isAiValid(player, fighter);
+        }
 
-   }
-
+    }
 }
 
 module.exports = Battlefield;
