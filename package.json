@@ -1,0 +1,24 @@
+{
+  "name": "robotvsdino",
+  "version": "1.0.0",
+  "description": "Robots vs Dinos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kelphane/RvD.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kelphane/RvD/issues"
+  },
+  "homepage": "https://github.com/Kelphane/RvD#readme",
+  "dependencies": {
+    "debug": "^4.3.2",
+    "prompt-sync": "^4.2.0"
+  }
+}
