@@ -9,6 +9,7 @@ class Battlefield{
         this.ai = [];
         this.herd = new Herd();
         this.fleet = new Fleet();
+        this.isGameOver = false;
     }
 
     runGame(){
@@ -61,13 +62,26 @@ class Battlefield{
 
     //Player One and Player Two Battle until one Wins.
     battle(){
-        let fighter = parseInt(prompt("Please Select Fighter: 0, 1, 2"));
-        let aiFighter = Math.floor(Math.random() * (2 - 0) + 0);
-
-        fighter = this.isAlive(this.player01, fighter);
-        aiFighter = this.aiIsAlive(this.player02, aiFighter);
-
         
+        while(!this.isGameOver){
+            if(!isTeamAlive(this.player01) || !isTeamAlive(this.player02)){
+                this.isGameOver = true;
+            }else{
+                let fighter = parseInt(prompt("Please Select Fighter: 0, 1, 2"));
+                let aiFighter = Math.floor(Math.random() * (2 - 0) + 0);
+
+                fighter = this.isAlive(this.player01, fighter);
+                aiFighter = this.aiIsAlive(this.player02, aiFighter);
+
+                //Player One Attacks Player Two:
+                this.player02[aiFighter].health -= this.player01[fighter].attackPower;
+                aiFighter = this.aiIsAlive(this.player02, aiFighter);
+
+                //Player Two Attacks Player One:
+                this.player01[fighter].health -= this.player02[aiFighter].attackPower;
+                fighter = this.isAlive(this.player01, fighter);
+            }
+        }
         
     }
 
@@ -92,6 +106,23 @@ class Battlefield{
     }else{
         return fighter;
     }
+   }
+
+   //Checks if Team is Alive:
+   isTeamAlive(player){
+        let counter = 0;
+
+        for(let i = 0; i < player.length; i++){
+            if(player[i].health > 0){
+                counter++;
+            }
+        }
+
+        if(counter > 0){
+            return true;
+        }else{
+            return false;
+        }
    }
 
 }
