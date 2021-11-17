@@ -64,11 +64,14 @@ class Battlefield{
     battle(){
         
         while(!this.isGameOver){
-            if(!isTeamAlive(this.player01) || !isTeamAlive(this.player02)){
+            if(!this.isTeamAlive(this.player01) || !this.isTeamAlive(this.player02)){
                 this.isGameOver = true;
             }else{
                 let fighter = parseInt(prompt("Please Select Fighter: 0, 1, 2"));
+                fighter = this.isValid(this.player01, fighter);
+
                 let aiFighter = Math.floor(Math.random() * (2 - 0) + 0);
+                aiFighter = isAiValid(this.player02, aiFighter);
 
                 fighter = this.isAlive(this.player01, fighter);
                 aiFighter = this.aiIsAlive(this.player02, aiFighter);
@@ -123,6 +126,22 @@ class Battlefield{
         }else{
             return false;
         }
+   }
+
+   //Validates User Input:
+   isValid(player, fighter){
+        if(fighter >= 0 && fighter < player.length){
+            return fighter;
+        }else{
+            console.log("Invalid Input! Please try again!");
+            fighter = parseInt(prompt("Please Select Fighter: 0, 1, 2"));
+            this.isValid(player, fighter);
+        }
+   }
+
+   //Validates AI Input:
+   isAiValid(player, fighter){
+
    }
 
 }
