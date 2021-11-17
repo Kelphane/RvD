@@ -46,7 +46,7 @@ class Battlefield{
 
     //AI selects thier Team.
     aiSelectTeam(){
-        let team = Math.floor(Math.random() * (2 - 1) + 1);
+        let team = Math.floor(Math.random() * 2);
 
         switch(team){
             case 1:
@@ -57,6 +57,8 @@ class Battlefield{
                 console.log("Player Two selected Dinos!");
                 this.player02 = this.herd.populate();
                 break;
+            default:
+                this.aiSelectTeam();
         }
     }
 
@@ -67,21 +69,27 @@ class Battlefield{
             if(!this.isTeamAlive(this.player01) || !this.isTeamAlive(this.player02)){
                 this.isGameOver = true;
             }else{
-                let fighter = parseInt(prompt("Please Select Fighter: 0, 1, 2"));
+                //Prompts Player One to Select Fighter:
+                let fighter = parseInt(prompt("Please Select Fighter: 0, 1, 2: "));
                 fighter = this.isValid(this.player01, fighter);
 
-                let aiFighter = Math.floor(Math.random() * (2 - 0) + 0);
-                aiFighter = isAiValid(this.player02, aiFighter);
+                //AI Selects Fighter:
+                let aiFighter = Math.floor(Math.random() * 2);
+                aiFighter = this.isAiValid(this.player02, aiFighter);
 
+                //Checks if both Fighters are Alive:
                 fighter = this.isAlive(this.player01, fighter);
                 aiFighter = this.aiIsAlive(this.player02, aiFighter);
 
                 //Player One Attacks Player Two:
                 this.player02[aiFighter].health -= this.player01[fighter].attackPower;
+                console.log(`Player Two Health: ${this.player02[aiFighter].health}`);
                 aiFighter = this.aiIsAlive(this.player02, aiFighter);
 
                 //Player Two Attacks Player One:
+                console.log(`${aiFighter}`);
                 this.player01[fighter].health -= this.player02[aiFighter].attackPower;
+                console.log(`Player One Health: ${this.player01[fighter].health}`);
                 fighter = this.isAlive(this.player01, fighter);
             }
         }
@@ -95,6 +103,7 @@ class Battlefield{
         if(player[fighter].health <= 0){
             console.log("Fighter is Dead! Please Select Another!");
             fighter = parseInt(prompt("Please Select Fighter: 0, 1, 2"));
+            fighter = this.isValid(player, fighter);
             this.isAlive(player, fighter);
         }else{
             return fighter;
@@ -104,7 +113,8 @@ class Battlefield{
    //Checks to see is AI Fighter is Alive:
    aiIsAlive(player, fighter){
     if(player[fighter].health <= 0){
-        fighter = Math.floor(Math.random() * (2 - 0) + 0);
+        fighter = Math.floor(Math.random() * 2);
+        fighter = this.isValid(player, fighter);
         this.aiIsAlive(player, fighter);
     }else{
         return fighter;
@@ -144,7 +154,7 @@ class Battlefield{
         if(fighter >= 0 && fighter < player.length){
             return fighter;
         }else{
-            fighter = Math.floor(Math.random() * (2 - 0) + 0);
+            fighter = Math.floor(Math.random() * 2);
             this.isAiValid(player, fighter);
         }
 
