@@ -58,6 +58,42 @@ class Battlefield{
                 break;
         }
     }
+
+    //Player One and Player Two Battle until one Wins.
+    battle(){
+        let fighter = parseInt(prompt("Please Select Fighter: 0, 1, 2"));
+        let aiFighter = Math.floor(Math.random() * (2 - 0) + 0);
+
+        fighter = this.isAlive(this.player01, fighter);
+        aiFighter = this.aiIsAlive(this.player02, aiFighter);
+
+        
+        
+    }
+
+    //BATTLE HELPER METHODS/////////////
+
+    //Checks to see if Player One Fighter is Alive:
+   isAlive(player, fighter){
+        if(player[fighter].health <= 0){
+            console.log("Fighter is Dead! Please Select Another!");
+            fighter = parseInt(prompt("Please Select Fighter: 0, 1, 2"));
+            this.isAlive(player, fighter);
+        }else{
+            return fighter;
+        }
+   }
+
+   //Checks to see is AI Fighter is Alive:
+   aiIsAlive(player, fighter){
+    if(player[fighter].health <= 0){
+        fighter = Math.floor(Math.random() * (2 - 0) + 0);
+        this.aiIsAlive(player, fighter);
+    }else{
+        return fighter;
+    }
+   }
+
 }
 
 module.exports = Battlefield;

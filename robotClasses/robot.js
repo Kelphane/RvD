@@ -4,7 +4,7 @@ class Robot {
     and a Weapon with a type (i.e. sword) and attack power */
 
     constructor(){
-        this.name = "robot";
+        this.name = "Robot";
         this.health = 100;
         this.powerLevel = 100;
         this.weapon = "sword";
